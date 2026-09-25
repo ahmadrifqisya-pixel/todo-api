@@ -30,7 +30,7 @@ async function createCategory(data) {
 
     const savedCategory = await category.save();
 
-    console.log("---> IP ADDRESS DIPANGGIL:", data.ipAddress);
+console.log("---> IP ADDRESS DIPANGGIL:", data.ipAddress);
 
     await logActivity(
         data.owner,
