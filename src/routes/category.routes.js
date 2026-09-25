@@ -46,7 +46,7 @@ router.use(protect);
  *         description: Belum login / token tidak valid
  */
 
-router.post("/", createCategoryRules, validate, categoryController.createCategory);
+router.post("/", categoryController.createCategory);
 
 /**
  * @swagger
