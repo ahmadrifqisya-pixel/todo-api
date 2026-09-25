@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const categoryController = require("../controllers/category.controller.js");
+const categoryController = require("../controllers/category.controller");
 const { protect } = require("../middlewares/auth.middleware.js");
-const validate = require("../middlewares/validate.middleware.js");
 
 router.use(protect);
 
@@ -20,7 +19,8 @@ router.use(protect);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [name]
+ *             required:
+ *               - name
  *             properties:
  *               name:
  *                 type: string
@@ -31,54 +31,25 @@ router.use(protect);
  *     responses:
  *       201:
  *         description: Kategori berhasil dibuat
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success: { type: boolean, example: true }
- *                 message: { type: string, example: Category created successfully }
- *                 data:
- *                   $ref: '#/components/schemas/Category'
- *       400:
- *         description: Validasi gagal (misal name kosong atau kurang dari 3 karakter)
- *       401:
- *         description: Belum login / token tidak valid
- */
-
-router.post("/", categoryController.createCategory);
-
-/**
- * @swagger
- * /api/categories:
+ *
  *   get:
- *     summary: Mengambil daftar kategori milik user yang sedang Login
+ *     summary: Mengambil semua daftar kategori
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Daftar kategori berhasil diambil
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success: { type: boolean, example: true }
- *                 message: { type: string, example: Categories retrieved successfully }
- *                 data: 
- *                   $ref: '#/components/schemas/Category'
- *       401: 
- *         description: Belum login / token tidak valid
+ *         description: Berhasil mengambil daftar kategori
  */
-
-router.get("/", categoryController.getAllCategories);
+router.route("/")
+  .post(categoryController.createCategory)
+  .get(categoryController.getCategories);
 
 /**
  * @swagger
  * /api/categories/{id}:
  *   get:
- *     summary: Mengambil satu kategori berdasarkan ID
+ *     summary: Mengambil kategori berdasarkan ID
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -88,48 +59,23 @@ router.get("/", categoryController.getAllCategories);
  *         required: true
  *         schema:
  *           type: string
- *         description: ID kategori (format ObjectId MongoDB)
  *     responses:
  *       200:
- *         description: Kategori berhasil ditemukan
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success: { type: boolean, example: true }
- *                 message: { type: string, example: Category retrieved successfully } 
- *                 data:
- *                   $ref: '#/components/schemas/Category'
- *       400:
- *         description: Format ID tidak valid
- *       401:
- *         description: Belum login / token tidak valid
- *       403:
- *         description: Kategori ini bukan milik user yang sedang login
- *       404:
- *         description: Kategori tidak ditemukan
- */
-
-router.get("/:id", getCategoryByIdRules, validate, categoryController.getCategoryById);
-
-/**
- * @swagger
- * /api/categories/{id}:
+ *         description: Berhasil mengambil detail kategori
+ *
  *   put:
  *     summary: Mengupdate kategori berdasarkan ID
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
- *     parameters: 
+ *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID kategori (format ObjectId MongoDB)
  *     requestBody:
- *       required: false
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
@@ -137,37 +83,12 @@ router.get("/:id", getCategoryByIdRules, validate, categoryController.getCategor
  *             properties:
  *               name:
  *                 type: string
- *                 example: Pekerjaan (revisi)
  *               description:
  *                 type: string
- *                 example: Kategori tugas kantor dan projek freelance
  *     responses:
  *       200:
- *         description: Kategori berhasil diupdate
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success: { type: boolean, example: true }
- *                 message: { type: string, example: Category updated successfully }
- *                 data: 
- *                   $ref: '#/components/schemas/Category'
- *       400:
- *         description: Validasi gagal atau format ID tidak valid
- *       401:
- *         description: Belum login / token tidak valid
- *       403: 
- *         description: Kategori ini bukan milik user yang sedang login
- *       404:
- *         description: Kategori tidak ditemukan
- */
-
-router.put("/:id", updateCategoryRules, validate, categoryController.updateCategory);
-
-/**
- * @swagger
- * /api/categories/{id}:
+ *         description: Berhasil mengupdate kategori
+ *
  *   delete:
  *     summary: Menghapus kategori berdasarkan ID
  *     tags: [Categories]
@@ -177,31 +98,15 @@ router.put("/:id", updateCategoryRules, validate, categoryController.updateCateg
  *       - in: path
  *         name: id
  *         required: true
- *         schema: 
+ *         schema:
  *           type: string
- *         description: ID kategori (format ObjectId MongoDB)
  *     responses:
  *       200:
- *         description: Kategori berhasil dihapus
- *         content: 
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success: { type: boolean, example: true }
- *                 message: { type: string, example: Category deleted successfully }
- *                 data:
- *                   $ref: '#/components/schemas/Category'
- *       400:
- *         description: Format ID tidak valid
- *       401:
- *         description: Belum login / token tidak valid
- *       403:
- *         description: Kategori ini bukan milik user yang sedang login
- *       404:
- *         description: Kategori tidak ditemukan
+ *         description: Berhasil menghapus kategori
  */
-
-router.delete("/:id", getCategoryByIdRules, validate, categoryController.deleteCategory);
+router.route("/:id")
+  .get(categoryController.getCategoryById)
+  .put(categoryController.updateCategory)
+  .delete(categoryController.deleteCategory);
 
 module.exports = router;
