@@ -1,5 +1,5 @@
 const category = require("../models/category.js");
-const categoryServices = require("../services/category.service.js");
+const categoryServices = require("../services/category.services.js");
 const AppError = require("../utils/AppError.js");
 const catchAsync = require("../utils/catchAsync.js");
 
