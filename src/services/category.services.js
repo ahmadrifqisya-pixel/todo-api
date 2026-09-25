@@ -1,6 +1,6 @@
 const { logActivity } = require("./log.service.js");
 const mongoose = require("mongoose");
-const categoryDb = require("../config/categoryDb");
+const categoryDb = require("../config/category.DB");
 
 async function createCategory(data) {
     console.log("---> DATA DI SERVICE:", data);
