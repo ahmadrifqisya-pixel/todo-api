@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const categoryDb = mongoose.createConnection(process.env.MONGODB_URI, {
-    dbName: "categories",
+    dbName: "category",
 });
 
 categoryDb.on("connected", () => {
