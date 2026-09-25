@@ -3,8 +3,8 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 const todoRoutes = require("./routes/todo.routes");
 const authRoutes = require("./routes/auth.routes");
+const categoryRoutes = require("./routes/category.routes");
 const statsRoutes = require("./routes/stats.routes");
-const categoryRoutes = require("./routes/category.routes"); // <-- 1. Tambahkan ini
 const logger = require("./middlewares/logger.middleware");
 const notFound = require("./middlewares/notFound.middleware");
 const errorHandler = require("./middlewares/errorHandler.middleware");
@@ -18,12 +18,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Todo API is running" });
 });
 
+// Halaman dokumentasi interaktif tersedia di /api-docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
+app.use("/api/categories", categoryRoutes);
 app.use("/api/stats", statsRoutes);
-app.use("/api/categories", categoryRoutes); // <-- 2. Tambahkan ini
 
 app.use(notFound);
 app.use(errorHandler);
