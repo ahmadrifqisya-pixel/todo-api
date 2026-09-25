@@ -3,11 +3,6 @@ const router = express.Router();
 const categoryController = require("../controllers/category.controller.js");
 const { protect } = require("../middlewares/auth.middleware.js");
 const validate = require("../middlewares/validate.middleware.js");
-const {
-    createCategoryRules,
-    updateCategoryRules,
-    getCategoryByIdRules,
-} = require("../validators/category.validator.js");
 
 router.use(protect);
 
