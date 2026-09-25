@@ -7,7 +7,7 @@ const {
     createCategoryRules,
     updateCategoryRules,
     getCategoryByIdRules,
-} = require("../validators/category.validator.js");
+} = require("../validator/category.validator.js");
 
 router.use(protect);
 
