@@ -11,9 +11,9 @@ function errorHandler(err, req, res, next) {
       .join(", ");
   }
 
-   if (err.name === "CastError") {
+  if (err.name === "CastError") {
     statusCode = 400;
-    message = `Invalid value for field "${err.path}": ${err.value}`;
+    message = `Invalid value for field "\({err.path}":\){err.value}`;
   }
 
   if (err.code === 11000) {
