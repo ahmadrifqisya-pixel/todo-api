@@ -10,7 +10,7 @@ router.use(protect);
  * /api/categories:
  *   post:
  *     summary: Membuat kategori baru (wajib login)
- *     tags: [Categories]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -34,14 +34,15 @@ router.use(protect);
  *
  *   get:
  *     summary: Mengambil semua daftar kategori
- *     tags: [Categories]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Berhasil mengambil daftar kategori
  */
-router.route("/")
+router
+  .route("/")
   .post(categoryController.createCategory)
   .get(categoryController.getCategories);
 
@@ -50,7 +51,7 @@ router.route("/")
  * /api/categories/{id}:
  *   get:
  *     summary: Mengambil kategori berdasarkan ID
- *     tags: [Categories]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -65,7 +66,7 @@ router.route("/")
  *
  *   put:
  *     summary: Mengupdate kategori berdasarkan ID
- *     tags: [Categories]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -74,24 +75,13 @@ router.route("/")
  *         required: true
  *         schema:
  *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
  *     responses:
  *       200:
  *         description: Berhasil mengupdate kategori
  *
  *   delete:
  *     summary: Menghapus kategori berdasarkan ID
- *     tags: [Categories]
+ *     tags: [Category]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -104,7 +94,8 @@ router.route("/")
  *       200:
  *         description: Berhasil menghapus kategori
  */
-router.route("/:id")
+router
+  .route("/:id")
   .get(categoryController.getCategoryById)
   .put(categoryController.updateCategory)
   .delete(categoryController.deleteCategory);
