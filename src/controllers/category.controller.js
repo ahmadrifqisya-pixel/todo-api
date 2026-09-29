@@ -17,6 +17,14 @@ const createCategory = catchAsync(async (req, res, next) => {
             ipAddress: req.ip,
         });
 
+        await activitylog.create({
+            user: req.user._id,
+            action: "CREATE_CATEGORY",
+            description: `User membuat kategori baru: ${category.name}`,
+            targetId: category._id,
+            ipAddress: req.ip,
+        });
+
         res.status(201).json({
             success: true,
             message: "Category created successfully",
