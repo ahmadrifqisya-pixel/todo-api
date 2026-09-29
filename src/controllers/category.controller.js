@@ -1,5 +1,6 @@
 const category = require("../models/category.js");
 const categoryServices = require("../services/category.service.js");
+const activityLog = require("../models/activitylog.js");
 const AppError = require("../utils/AppError.js");
 const catchAsync = require("../utils/catchAsync.js");
 
