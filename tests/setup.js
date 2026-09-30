@@ -4,16 +4,15 @@ const mongoose = require('mongoose');
 let mongoServer;
 
 beforeAll(async () => {
-  // Matikan log error driver yang tidak perlu
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
 
   process.env.MONGODB_URI = uri;
 
-  // 1. Connect Mongoose utama
+  // Connect utama
   await mongoose.connect(uri);
 
-  // 2. Connect categoryDb (jika dipanggil)
+  // Connect ke categoryDb
   const categoryDb = require('../src/config/category.DB');
   if (categoryDb.readyState === 0) {
     await categoryDb.openUri(uri, { dbName: 'category' });
