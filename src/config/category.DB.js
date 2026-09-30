@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 
-const categoryDb = mongoose.createConnection(process.env.MONGODB_URI, {
-    dbName: "category",
-});
+const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/todo-api";
 
-categoryDb.on("connected", () => {
-    console.log("Connected to Categories Database");
+const categoryDb = mongoose.createConnection(mongoUri, {
+    dbName: "category",
 });
 
 module.exports = categoryDb;
