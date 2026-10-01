@@ -58,4 +58,10 @@ git push -u origin main
 
 ## Rangkuman Perintah Utama
 
-Perintah GitFungsi Utamagit statusMemeriksa status filegit logMelihat riwayat commitgit add .Menambahkan seluruh perubahan filegit commit -m "pesan"Menyimpan riwayat perubahangit pushMengirim commit ke GitHub
+| Perintah Git            | Fungsi Utama                        |
+| ----------------------- | ----------------------------------- |
+| `git status`            | Memeriksa status file               |
+| `git log`               | Melihat riwayat commit              |
+| `git add . `            | Menambahkan seluruh perubahan file  |
+| `git commit -m "pesan"` | Menyimpan riwayat perubahan         |
+| `git push`              | Mengirim commit ke GitHub           |
